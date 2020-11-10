@@ -1,0 +1,8 @@
+FROM golang:1.13.8-alpine AS build
+WORKDIR /src/backend/neural-network
+COPY . .
+RUN go build -o /out/neural-network .
+FROM scratch AS bin
+COPY --from=build /out/neural-network /
+
+EXPOSE 9091

@@ -1,0 +1,8 @@
+FROM golang:1.13.8-alpine AS build
+WORKDIR /src/backend/api
+COPY . .
+RUN go build -o /out/api .
+FROM scratch AS bin
+COPY --from=build /out/api /
+
+EXPOSE 9090
